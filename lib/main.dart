@@ -1,43 +1,83 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(AppTabBar());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
+class AppTabBar extends StatelessWidget {
+  const AppTabBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      title: "Ejemplo TabBar",
+      theme: ThemeData(primarySwatch: Colors.teal),
+      home: MiPaginaInicial(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class MiPaginaInicial extends StatefulWidget {
+  const MiPaginaInicial({Key? key}) : super(key: key);
 
   @override
+  State<MiPaginaInicial> createState() => _MiPaginaInicialState();
+}
+
+class _MiPaginaInicialState extends State<MiPaginaInicial> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Papeleria DDO"),
+          centerTitle: true,
+          backgroundColor: Colors.blue, // Color de fondo personalizado
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: TabBar(
+                isScrollable: true,
+                tabs: [
+                  Tab(
+                    text: "Pinturas",
+                  ),
+                  Tab(
+                    text: "Mochilas",
+                  ),
+                  Tab(
+                    text: "Papel",
+                  ),
+                  Tab(
+                    text: "Cartas",
+                  ),
+                  Tab(
+                    text: "Clips",
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
+        body: TabBarView(children: <Widget>[
+          Center(
+            child: Icon(Icons.brush, size: 180, color: Colors.red),
+          ),
+          Center(
+            child: Icon(Icons.backpack, size: 180, color: Colors.green),
+          ),
+          Center(
+            child: Icon(Icons.description, size: 180, color: Colors.blue),
+          ),
+          Center(
+            child: Icon(Icons.card_membership, size: 180, color: Colors.orange),
+          ),
+          Center(
+            child: Icon(Icons.attach_file, size: 180, color: Colors.purple),
+          ),
+        ]),
       ),
     );
-  }
+  } //widgets
 }
